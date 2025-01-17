@@ -12,6 +12,43 @@ function swiperjs_slider_enqueue_assets() {
     wp_enqueue_style('swiper-css', 'https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css', [], '10.0.4');
     wp_enqueue_script('swiper-js', 'https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js', [], '10.0.4', true);
     wp_enqueue_script('swiper-custom', plugin_dir_url(__FILE__) . 'js/swiper-custom.js', ['swiper-js'], '1.0.0', true);
+
+    // Add custom CSS for slider height, image containment, and positioning of arrows and dots
+    wp_add_inline_style('swiper-css', "
+        .swiper-container {
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            position: relative;
+        }
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .swiper-pagination {
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            z-index: 10;
+        }
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: #fff;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+        .swiper-button-next {
+            right: 10px;
+        }
+        .swiper-button-prev {
+            left: 10px;
+        }
+    ");
 }
 add_action('wp_enqueue_scripts', 'swiperjs_slider_enqueue_assets');
 
