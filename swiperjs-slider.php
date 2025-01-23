@@ -4,7 +4,7 @@
  * Description: A WordPress plugin to create a slider using SwiperJS with arrows and dot pagination.
  * Version: 1.0.0
  * Author: Jennifer Murrin
- * Author URI: https://jennifermurrin.com
+ * Author URI: https://jennifermurrin.com 
  */
 
 // Enqueue SwiperJS assets
