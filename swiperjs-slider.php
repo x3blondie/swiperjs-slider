@@ -7,6 +7,7 @@
  * Author URI: https://jennifermurrin.com 
  */
 
+
 // Enqueue SwiperJS assets
 function swiperjs_slider_enqueue_assets() {
     wp_enqueue_style('swiper-css', 'https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css', [], '10.0.4');
