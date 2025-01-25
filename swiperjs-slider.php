@@ -13,41 +13,65 @@ function swiperjs_slider_enqueue_assets() {
     wp_enqueue_script('swiper-js', 'https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js', [], '10.0.4', true);
     wp_enqueue_script('swiper-custom', plugin_dir_url(__FILE__) . 'js/swiper-custom.js', ['swiper-js'], '1.0.0', true);
 
-    // Add custom CSS for slider height, image containment, and positioning of arrows and dots
+    // Add custom CSS for slider height and image containment
     wp_add_inline_style('swiper-css', "
         .swiper-container {
             width: 100%;
             height: 500px;
             overflow: hidden;
-            position: relative;
         }
         .swiper-slide img {
             width: 100%;
             height: 100%;
             object-fit: contain;
         }
-        .swiper-pagination {
-            position: absolute;
-            bottom: 15px;
-            left: 0;
+
+        html,
+        body {
+            position: relative;
+            height: 100%;
+        }
+
+        body {
+            background: #eee;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            color: #000;
+            margin: 0;
+            padding: 0;
+        }
+
+        .swiper {
             width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
             text-align: center;
-            z-index: 10;
+            font-size: 18px;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        .swiper-button-next,
-        .swiper-button-prev {
-            color: #fff;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 10;
+
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
-        .swiper-button-next {
-            right: 10px;
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
         }
-        .swiper-button-prev {
-            left: 10px;
+
+        .swiper-wrapper {
+            height: 600px;
+            background-color: black;
         }
+
     ");
 }
 add_action('wp_enqueue_scripts', 'swiperjs_slider_enqueue_assets');
@@ -66,20 +90,23 @@ function swiperjs_slider_shortcode($atts) {
 
     ob_start();
     ?>
-    <div class="swiper-container">
-        <div class="swiper-wrapper">
-            <?php foreach ($images as $image) : ?>
-                <div class="swiper-slide">
-                    <img src="<?php echo esc_url($image); ?>" alt="Slide Image">
-                </div>
-            <?php endforeach; ?>
+    <div class="container">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <?php foreach ($images as $image) : ?>
+                    <div class="swiper-slide">
+                        <img src="<?php echo esc_url($image); ?>" alt="Slide Image">
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+            <!-- Add Navigation Arrows -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
         </div>
-        <!-- Add Pagination -->
-        <div class="swiper-pagination"></div>
-        <!-- Add Navigation Arrows -->
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
     </div>
+    
     <?php
     return ob_get_clean();
 }
